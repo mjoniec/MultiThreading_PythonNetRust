@@ -60,7 +60,7 @@ namespace MultiThreadingNet
         /// For Multi Threaded test size: 500000000 Pi estimate is: 3.141585368 and took 2670.9247 miliseconds to calculate
         /// For Multi Threaded test size: 2000000000 Pi estimate is: 3.141581536 and took 9996.2232 miliseconds to calculate
         /// </returns>
-        internal string RunmultiThreaded()
+        internal string RunMultiThreaded()
         {
             var sb = new StringBuilder();
             sb.AppendLine(RunLoop(test1));
