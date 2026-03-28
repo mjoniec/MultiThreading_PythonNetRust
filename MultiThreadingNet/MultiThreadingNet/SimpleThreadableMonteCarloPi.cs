@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MultiThreadingNet
 {
@@ -47,6 +48,50 @@ namespace MultiThreadingNet
                 var s = "For Single Thread test size: " + numberOfPoints + 
                     " Pi estimate is: " + piEstimate + " and took " + elapsed.TotalMilliseconds + " miliseconds to calculate";
                 
+                return s;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>
+        /// For Multi Threaded test size: 50000000 Pi estimate is: 3.14153984 and took 588.0419 miliseconds to calculate
+        /// For Multi Threaded test size: 500000000 Pi estimate is: 3.141585368 and took 2670.9247 miliseconds to calculate
+        /// For Multi Threaded test size: 2000000000 Pi estimate is: 3.141581536 and took 9996.2232 miliseconds to calculate
+        /// </returns>
+        internal string RunmultiThreaded()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(RunLoop(test1));
+            sb.AppendLine(RunLoop(test2));
+            sb.AppendLine(RunLoop(test3));
+
+            return sb.ToString();
+
+            string RunLoop(long numberOfPoints)
+            {
+                long startTime = Stopwatch.GetTimestamp();
+                long pointsInsideCircle = 0;
+
+                Parallel.For(0, numberOfPoints,
+                    () => 0L, // local counter per thread
+                    (i, state, localCount) =>
+                    {
+                        double x = Random.Shared.NextDouble();
+                        double y = Random.Shared.NextDouble();
+                        if (x * x + y * y <= 1.0) localCount++;
+                        return localCount;
+                    },
+                    localCount => Interlocked.Add(ref pointsInsideCircle, localCount) //sum up
+                );
+
+                double piEstimate = 4.0 * pointsInsideCircle / numberOfPoints;
+                TimeSpan elapsed = Stopwatch.GetElapsedTime(startTime);
+
+                var s = "For Multi Threaded test size: " + numberOfPoints +
+                    " Pi estimate is: " + piEstimate + " and took " + elapsed.TotalMilliseconds + " miliseconds to calculate";
+
                 return s;
             }
         }
