@@ -4,7 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("Pi Monte Carlo Single Thread:");
+            Console.WriteLine(new SimpleThreadableMonteCarloPi().RunSingleThread());
         }
     }
 }
