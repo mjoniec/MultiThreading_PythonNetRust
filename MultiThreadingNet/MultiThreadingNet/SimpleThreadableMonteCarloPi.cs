@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Text;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MultiThreadingNet
 {
