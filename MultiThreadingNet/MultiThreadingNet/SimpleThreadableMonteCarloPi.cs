@@ -10,15 +10,12 @@ namespace MultiThreadingNet
         long test3 = 2_000_000_000;
         Random rand = new Random();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>
-        /// Pi Monte Carlo Single Thread:
-        /// For Single Thread test size: 50000000 Pi estimate is: 3.14167312 and took 1076.2867 miliseconds to calculate
-        /// For Single Thread test size: 500000000 Pi estimate is: 3.1415828 and took 7496.23 miliseconds to calculate
-        /// For Single Thread test size: 2000000000 Pi estimate is: 3.141538216 and took 29947.0328 miliseconds to calculate
-        /// </returns>
+
+        /* Pi Monte Carlo Single Thread:
+For Single Thread test size:   50000000 Pi estimate is:  3.14153608 and took  1008.8628 miliseconds to calculate with peak memory at: 35618816
+For Single Thread test size:  500000000 Pi estimate is:  3.14152424 and took  7520.3479 miliseconds to calculate with peak memory at: 37470208
+For Single Thread test size: 2000000000 Pi estimate is: 3.141553622 and took 29547.1995 miliseconds to calculate with peak memory at: 37707776
+        */
         internal string RunSingleThread()
         {
             var sb = new StringBuilder();
@@ -30,6 +27,7 @@ namespace MultiThreadingNet
 
             string RunLoop(long numberOfPoints)
             {
+                Process currentProcess = Process.GetCurrentProcess();
                 long startTime = Stopwatch.GetTimestamp();
                 long pointsInsideCircle = 0;
                 
@@ -43,22 +41,22 @@ namespace MultiThreadingNet
 
                 double piEstimate = 4.0 * pointsInsideCircle / numberOfPoints;
                 TimeSpan elapsed = Stopwatch.GetElapsedTime(startTime);
+                currentProcess.Refresh();
+                long peakMemoryBytes = currentProcess.PeakWorkingSet64;
 
                 var s = "For Single Thread test size: " + numberOfPoints + 
-                    " Pi estimate is: " + piEstimate + " and took " + elapsed.TotalMilliseconds + " miliseconds to calculate";
+                    " Pi estimate is: " + piEstimate + " and took " + elapsed.TotalMilliseconds 
+                    + " miliseconds to calculate with peak memory at: " + peakMemoryBytes;
                 
                 return s;
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>
-        /// For Multi Threaded test size: 50000000 Pi estimate is: 3.14153984 and took 588.0419 miliseconds to calculate
-        /// For Multi Threaded test size: 500000000 Pi estimate is: 3.141585368 and took 2670.9247 miliseconds to calculate
-        /// For Multi Threaded test size: 2000000000 Pi estimate is: 3.141581536 and took 9996.2232 miliseconds to calculate
-        /// </returns>
+        /* Pi Monte Carlo Multi Threaded:
+For Multi Threaded test size:   50000000 Pi estimate is: 3.14168872  and took  525.9743 miliseconds to calculate with peak memory at: 35360768
+For Multi Threaded test size:  500000000 Pi estimate is: 3.141532776 and took 2543.7616 miliseconds to calculate with peak memory at: 36601856
+For Multi Threaded test size: 2000000000 Pi estimate is: 3.141625438 and took 9615.4509 miliseconds to calculate with peak memory at: 38166528
+        */
         internal string RunMultiThreaded()
         {
             var sb = new StringBuilder();
@@ -70,6 +68,7 @@ namespace MultiThreadingNet
 
             string RunLoop(long numberOfPoints)
             {
+                Process currentProcess = Process.GetCurrentProcess();
                 long startTime = Stopwatch.GetTimestamp();
                 long pointsInsideCircle = 0;
 
@@ -87,9 +86,12 @@ namespace MultiThreadingNet
 
                 double piEstimate = 4.0 * pointsInsideCircle / numberOfPoints;
                 TimeSpan elapsed = Stopwatch.GetElapsedTime(startTime);
+                currentProcess.Refresh();
+                long peakMemoryBytes = currentProcess.PeakWorkingSet64;
 
                 var s = "For Multi Threaded test size: " + numberOfPoints +
-                    " Pi estimate is: " + piEstimate + " and took " + elapsed.TotalMilliseconds + " miliseconds to calculate";
+                    " Pi estimate is: " + piEstimate + " and took " + elapsed.TotalMilliseconds 
+                    + " miliseconds to calculate with peak memory at: " + peakMemoryBytes;
 
                 return s;
             }
