@@ -1,10 +1,21 @@
 from simple_threadable_monte_carlo import SimpleThreadableMonteCarloPi
+import sys
+
+if hasattr(sys, "_is_gil_enabled"): # from 3.13...
+    print(f"Is GIL enabled? (it should not be for tests to properly work)  {sys._is_gil_enabled()}")
+else:
+    print("This version of Python does not support the optional GIL.")
 
 mc = SimpleThreadableMonteCarloPi()
-print(f"Pi Monte Carlo Single Thread:")
-print(mc.run_single_thread())
-print(f"Pi Monte Carlo Multi Thread GIL-free:")
+
+#print(f"Pi Monte Carlo Single Thread:")
+#print(mc.run_single_thread())
+
+print(f"Pi Monte Carlo Multi Thread")
 print(mc.run_multi_thread())
+
+
+
 
 """
 (how come 18GB when PC is only 16GB?...)

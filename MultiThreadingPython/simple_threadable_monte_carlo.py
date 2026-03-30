@@ -55,7 +55,8 @@ class SimpleThreadableMonteCarloPi:
         start_time = time.perf_counter()
         
         # Pobieramy liczbę dostępnych rdzeni
-        num_workers = os.cpu_count() or 1
+        num_workers = os.cpu_count() or 1 #returns 8 on 4 cores with double thread each...
+        #num_workers = 4 #tmp solution
         points_per_worker = number_of_points // num_workers
 
         # Wykonanie równoległe (GIL-free w Python 3.13/3.14)
