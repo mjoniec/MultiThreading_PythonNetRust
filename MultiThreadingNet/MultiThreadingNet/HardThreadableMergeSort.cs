@@ -11,11 +11,6 @@ namespace MultiThreadingNet
         int Threshold = 2048; //under that we use Single Thread Merge Sort
         int MaxDepth = (int)Math.Log2(Environment.ProcessorCount); // max depth based on core count
 
-        /* Merge Sort Single Thread::
-For Single Thread test size:   1000000 sorting took:   452.6238 miliseconds with peak memory at:   54 886 400
-For Single Thread test size:  10000000 sorting took:  3604.2488 miliseconds with peak memory at:  294 260 736
-For Single Thread test size: 100000000 sorting took: 39651.9805 miliseconds with peak memory at: 1740 173 312
-        */
         internal string RunMergeSortSingleThreadTests()
         {
             var sb = new StringBuilder();
@@ -26,11 +21,7 @@ For Single Thread test size: 100000000 sorting took: 39651.9805 miliseconds with
             return sb.ToString();
         }
 
-        /* Merge Sort Multi Threaded:
-For Multi Thread test size:   1000000 sorting took:   166.0000 miliseconds with peak memory at: 1740 173 312
-For Multi Thread test size:  10000000 sorting took:   978.5661 miliseconds with peak memory at: 1740 173 312
-For Multi Thread test size: 100000000 sorting took: 11097.4583 miliseconds with peak memory at: 3164 663 808
-        */
+
         internal string RunMergeSortMultiThreadedTests()
         {
             var sb = new StringBuilder();
