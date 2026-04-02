@@ -15,14 +15,14 @@ class SimpleThreadableMonteCarloPi:
     def run_single_thread(self) -> str: # NO GIL-Free variant
         results = []
         results.append(self.single_thread(self.test1))
-        results.append(self.single_thread(self.test2))
+        #results.append(self.single_thread(self.test2))
         #results.append(self.single_thread(self.test3)) #too slow >> untestable...
         return "\n".join(results)
 
     def run_multi_thread(self) -> str: # GIL-Free variant
         results = []
         results.append(self.multi_thread(self.test1))
-        results.append(self.multi_thread(self.test2))
+        #results.append(self.multi_thread(self.test2))
         #results.append(self.multi_thread(self.test3))
         return "\n".join(results)
 
