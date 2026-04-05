@@ -13,6 +13,14 @@ fn main() {
     
 }
 
+//cargo run --release  -  NICE! :)
+// Pi Monte Carlo Single Thread:
+// For Single Thread test size: 50000000 Pi estimate is: 3.1409632 and took 397.82 miliseconds
+
+// Pi Monte Carlo Multi Threaded:
+// For Multi Threaded test size: 50000000 Pi estimate is: 3.1420132 and took 83.66 ms
+
+//cargo run          slooooooooooooooooowwwwwwwwwwwwwwwwwwwwww
 //Pi Monte Carlo Single Thread:
 //For Single Thread test size: 50000000 Pi estimate is: 3.14162888 and took 37271.00 miliseconds
 //Pi Monte Carlo Multi Threaded:

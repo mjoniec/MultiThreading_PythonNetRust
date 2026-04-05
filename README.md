@@ -30,5 +30,6 @@
 - install VS Code Extensions: rust-analyzer(language server) and CodeLLDB (debugging)
 - `rustc --version` (check if installed & what version)
 - `cargo new MultiThreadingRust` (cargo recommended, as rust-analyzer performs best when it can find a Cargo.toml project manifest)
-- `cargo run` - run app
+- `cargo run` - run app (debug slow!)
+- `cargo run --release` performance test run - 100x faster than debug!
 - error link.exe >> re-install C++ Build Tools
