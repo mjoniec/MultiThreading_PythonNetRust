@@ -7,6 +7,7 @@
 
 ## NET
 - just install VisualStudio 2026 & run F5 (debug)
+- for fair and best times remember to set to release
 
 ## Python
 - install Visual Studio Code, use build-in terminal
