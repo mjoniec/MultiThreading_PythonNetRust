@@ -2,17 +2,18 @@ use rand::Rng;
 use rayon::prelude::*;
 use std::time::Instant;
 use rand::thread_rng;
+use sysinfo::{System, Pid};
 
 pub struct SimpleMonteCarlo {
-    tests: [u64; 1],
-    //tests: [u64; 3],
+    //tests: [u64; 1],
+    tests: [u64; 3],
 }
 
 impl SimpleMonteCarlo {
     pub fn new() -> Self {
         Self {
-            tests: [50_000_000],
-            //tests: [50_000_000, 500_000_000, 2_000_000_000],//so sloooow... why???
+            //tests: [50_000_000],
+            tests: [50_000_000, 500_000_000, 2_000_000_000],
         }
     }
 
@@ -26,6 +27,7 @@ impl SimpleMonteCarlo {
     }
 
     fn run_loop(&self, number_of_points: u64) -> String {
+        let mut sys = System::new_all();
         let start_time = Instant::now();
         let mut points_inside_circle = 0u64;
         let mut rng = rand::thread_rng();
@@ -38,15 +40,7 @@ impl SimpleMonteCarlo {
             }
         }
 
-        let pi_estimate = 4.0 * (points_inside_circle as f64) / (number_of_points as f64);
-        let elapsed = start_time.elapsed();
-
-        // W Rust pobieranie "Peak Working Set" wymaga zewnętrznych bibliotek (np. sysinfo),
-        // dlatego tutaj skupiamy się na czystej logice obliczeniowej.
-        format!(
-            "For Single Thread test size: {} Pi estimate is: {} and took {:.2} miliseconds",
-            number_of_points, pi_estimate, elapsed.as_secs_f64() * 1000.0
-        )
+        self.format_output("Single Thread", number_of_points, points_inside_circle, start_time, &mut sys)
     }
 
     pub fn run_multi_threaded(&self) -> String {
@@ -59,6 +53,7 @@ impl SimpleMonteCarlo {
     }
 
     fn run_loop_multi(&self, number_of_points: u64) -> String {
+        let mut sys = System::new_all();
         let start = Instant::now();
 
         // Rayon automatycznie zarzadza pula watków i dzieli zadania
@@ -74,16 +69,23 @@ impl SimpleMonteCarlo {
             )
             .sum();
 
-        self.format_output("Multi Threaded", number_of_points, points_inside_circle, start)
+        self.format_output("Multi Threaded", number_of_points, points_inside_circle, start, &mut sys)
     }
 
-    fn format_output(&self, mode: &str, size: u64, inside: u64, start: Instant) -> String {
+    fn format_output(&self, mode: &str, size: u64, inside: u64, start: Instant, sys: &mut System) -> String {
         let pi_estimate = 4.0 * (inside as f64) / (size as f64);
         let elapsed = start.elapsed();
         
+        //peak memory usage
+        sys.refresh_processes(sysinfo::ProcessesToUpdate::All, true); // Odświeżamy dane procesów
+        let pid = sysinfo::get_current_pid().unwrap();
+        let peak_memory = sys.process(pid) // Pobieramy aktualne użycie pamięci (RSS) w KB
+            .map(|p| p.memory()) 
+            .unwrap_or(0);
+
         format!(
-            "For {} test size: {} Pi estimate is: {} and took {:.2} ms",
-            mode, size, pi_estimate, elapsed.as_secs_f64() * 1000.0
+            "For {} test size: {} Pi estimate is: {} and took {:.2} ms with peak memory: {} KB",
+            mode, size, pi_estimate, elapsed.as_secs_f64() * 1000.0, peak_memory
         )
     }
 }
