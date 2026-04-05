@@ -6,3 +6,5 @@
 /MultiThreadingNet/MultiThreadingNet/obj
 /MultiThreadingNet/MultiThreadingNet/bin/Debug/net10.0
 /MultiThreadingPython/__pycache__
+/MultiThreadingRust/target
+/MultiThreadingRust/Cargo.lock

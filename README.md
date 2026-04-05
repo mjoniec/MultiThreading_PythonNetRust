@@ -25,4 +25,10 @@
 - info: When using uv + virtual >> pip is no longer used
 
 ## Rust
-- TODO
+- Install (VS installer) C++ Build Tools, select "Desktop development with C++" (Rust requires a C++ linker on Windows)
+- install Rust: Visit rustup.rs to download and run the installer (rustup-init.exe). This installs the compiler (rustc) and the package manager (cargo).
+- install VS Code Extensions: rust-analyzer(language server) and CodeLLDB (debugging)
+- `rustc --version` (check if installed & what version)
+- `cargo new MultiThreadingRust` (cargo recommended, as rust-analyzer performs best when it can find a Cargo.toml project manifest)
+- `cargo run` - run app
+- error link.exe >> re-install C++ Build Tools
