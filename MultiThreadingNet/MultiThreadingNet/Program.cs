@@ -31,14 +31,14 @@ For Multi Threaded test size:  500 000 000 Pi estimate is: 3.141500296 and took 
 For Multi Threaded test size: 2000 000 000 Pi estimate is: 3.141577274 and took 4804.563  miliseconds to calculate with peak memory at: 28 356 608
 
 Merge Sort Single Thread:
-For Single Thread test size:   1 000 000 sorting took:   197.9436 miliseconds with peak memory at:   49446912
-For Single Thread test size:  10 000 000 sorting took:  1177.8297 miliseconds with peak memory at:  286613504
-For Single Thread test size: 100 000 000 sorting took: 12873.1572 miliseconds with peak memory at: 1798041600
+For Single Thread test size:   1 000 000 sorting took:   197.9436 miliseconds with peak memory at:   49 446912
+For Single Thread test size:  10 000 000 sorting took:  1177.8297 miliseconds with peak memory at:  286 613504
+For Single Thread test size: 100 000 000 sorting took: 12873.1572 miliseconds with peak memory at: 1798 041600
 
 Merge Sort Multi Threaded:
-For Multi Thread test size:   1 000 000 sorting took:   35.2071 miliseconds with peak memory at: 1 798 041 600
-For Multi Thread test size:  10 000 000 sorting took:  369.5025 miliseconds with peak memory at: 1 798 041 600
-For Multi Thread test size: 100 000 000 sorting took: 4094.7963 miliseconds with peak memory at: 3 436 490 752
+For Multi Thread test size:   1 000 000 sorting took:   35.2071 miliseconds with peak memory at: 1 798 041600
+For Multi Thread test size:  10 000 000 sorting took:  369.5025 miliseconds with peak memory at: 1 798 041600
+For Multi Thread test size: 100 000 000 sorting took: 4094.7963 miliseconds with peak memory at: 3 436 490752
 
 
 
