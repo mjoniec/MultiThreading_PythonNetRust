@@ -1,17 +1,40 @@
 mod simple_threadable_monte_carlo_pi;
+mod merge_sort;
 
 use simple_threadable_monte_carlo_pi::SimpleMonteCarlo;
+use merge_sort::HardMergeSort;
 
 fn main() {
-    println!("Pi Monte Carlo Single Thread:");
     let mc = SimpleMonteCarlo::new();
+
+    println!("Pi Monte Carlo Single Thread:");
     println!("{}", mc.run_single_thread());
 
     println!("Pi Monte Carlo Multi Threaded:");
-    let mc = SimpleMonteCarlo::new();
     println!("{}", mc.run_multi_threaded());
     
+    let ms = HardMergeSort::new();
+    
+    println!("Merge Sort Single Thread");
+    println!("{}", ms.run_single_thread_tests());
+    
+    println!("Merge Sort Multi Thread ");
+    println!("{}", ms.run_multi_thread_tests());
 }
+
+//cargo run --release
+//first run with success, no issues no trouble shooting needed - AI search kept in context of all prev work made this more difficult algo just work
+// Merge Sort Single Thread
+// For Single Thread test size: 1000000 sorting took: 148.07 ms with memory: 20 709376 KB
+// For Single Thread test size: 10000000 sorting took: 1633.88 ms with memory: 57 085952 KB
+// For Single Thread test size: 100000000 sorting took: 18073.15 ms with memory: 417 476608 KB
+
+// Merge Sort Multi Thread
+// For Multi Thread test size: 1000000 sorting took: 47.39 ms with memory: 21 393408 KB
+// For Multi Thread test size: 10000000 sorting took: 433.38 ms with memory: 58 957824 KB
+// For Multi Thread test size: 100000000 sorting took: 5052.82 ms with memory: 419 635200 KB
+
+
 
 //cargo run --release  -  NICE! :)  
 //what is even nicer is that AI picked on this from implication in the comment, not prompted to do so!
